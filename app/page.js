@@ -121,7 +121,7 @@ export default function Home() {
 					</section>
 					<section className="flex-1 min-w-0">
 						<PostComposer />
-						<div className="space-y-0 border">
+						<div className="space-y-0 border rounded">
 							{isLoading
 								? Array.from({ length: 5 }).map((_, index) => (
 										<div
@@ -148,7 +148,9 @@ export default function Home() {
 												index !== posts.length - 1
 													? 'border-b border-border'
 													: ''
-											} p-3 sm:p-4`}
+											} p-3 sm:p-4 ${index === 0 ? 'rounded-t' : ''} ${
+												index === posts.length - 1 ? 'rounded-b' : ''
+											}`}
 										>
 											<div className="mb-3">
 												<div className="flex justify-between items-center gap-2 mb-2">
@@ -166,7 +168,7 @@ export default function Home() {
 															<img
 																src={post.image_url}
 																alt="Post image"
-																className="max-w-full h-auto max-h-80 rounded-lg border cursor-pointer hover:opacity-95 transition-opacity"
+																className="max-w-full h-auto max-h-80 border cursor-pointer hover:opacity-95 transition-opacity"
 																onClick={() =>
 																	openImageModal(post.image_url)
 																}
@@ -196,7 +198,7 @@ export default function Home() {
 						<img
 							src={selectedImage}
 							alt="Full size image"
-							className="max-w-full max-h-full object-contain rounded-lg"
+							className="max-w-full max-h-full object-contain"
 							onClick={(e) => e.stopPropagation()}
 						/>
 					</div>

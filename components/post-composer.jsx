@@ -148,7 +148,7 @@ export default function PostComposer() {
 						{/* Image Upload Button */}
 						<label
 							htmlFor="image-upload"
-							className="flex items-center gap-1 pr-1.5 py-1 text-sm text-gray-600 hover:text-[#3b5998] cursor-pointer transition-colors"
+							className="flex items-center gap-1 pr-1.5 py-1 text-xs md:text-sm text-gray-600 hover:text-[#3b5998] cursor-pointer transition-colors"
 						>
 							<ImageIcon size={18} />
 							Upload a photo
@@ -162,7 +162,7 @@ export default function PostComposer() {
 						/>
 
 						<p
-							className={`text-foreground/80 text-sm ${
+							className={`text-foreground/80 text-xs md:text-sm ${
 								remainingChars < 20 ? 'text-red-500' : ''
 							}`}
 						>
