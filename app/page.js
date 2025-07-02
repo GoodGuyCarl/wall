@@ -103,7 +103,7 @@ export default function Home() {
 					</section>
 					<section className="flex-1 min-w-0">
 						<PostComposer />
-						<div className="space-y-0">
+						<div className="space-y-0 border">
 							{isLoading
 								? Array.from({ length: 5 }).map((_, index) => (
 										<div

@@ -4,7 +4,7 @@ export default function ProfileSidebar() {
 	return (
 		<>
 			<aside className="w-full lg:w-64 space-y-4">
-				<div className="bg-background border border-border rounded">
+				<div className="bg-white border border-border rounded">
 					<div className="p-3">
 						<div className="flex flex-row lg:flex-col lg:items-start items-center gap-3">
 							<Image
@@ -22,7 +22,7 @@ export default function ProfileSidebar() {
 						</div>
 					</div>
 				</div>
-				<div className="bg-background border border-border rounded">
+				<div className="bg-white border border-border rounded">
 					<div className="bg-accent text-white p-2 text-sm font-bold rounded-t">
 						Information
 					</div>
