@@ -6,12 +6,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import ProfileSidebar from '@/components/profile-sidebar';
 import Header from '@/components/header';
 import PostComposer from '@/components/post-composer';
+import { X } from 'lucide-react';
 
 export default function Home() {
-	const [selectedFile, setSelectedFile] = useState(null);
+	const [selectedImage, setSelectedImage] = useState(null);
 	const [posts, setPosts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const fileInputRef = useRef(null);
 
 	const fetchPosts = async () => {
 		try {
@@ -32,13 +32,31 @@ export default function Home() {
 		}
 	};
 
-	const handleFileUploadClick = () => {
-		fileInputRef.current?.click();
+	const openImageModal = (imageUrl) => {
+		setSelectedImage(imageUrl);
 	};
 
-	const handleFileChange = (event) => {
-		setSelectedFile(event.target.files[0] || null);
+	const closeImageModal = () => {
+		setSelectedImage(null);
 	};
+
+	useEffect(() => {
+		const handleKeyDown = (e) => {
+			if (e.key === 'Escape') {
+				closeImageModal();
+			}
+		};
+
+		if (selectedImage) {
+			document.addEventListener('keydown', handleKeyDown);
+			document.body.style.overflow = 'hidden';
+		}
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+			document.body.style.overflow = 'unset';
+		};
+	}, [selectedImage]);
 
 	useEffect(() => {
 		fetchPosts();
@@ -142,6 +160,20 @@ export default function Home() {
 												<div className="text-sm text-gray-800 leading-relaxed">
 													{post.body}
 												</div>
+												<div className="mt-2">
+													{post.image_url && (
+														<div className="mt-3">
+															<img
+																src={post.image_url}
+																alt="Post image"
+																className="max-w-full h-auto max-h-80 rounded-lg border cursor-pointer hover:opacity-95 transition-opacity"
+																onClick={() =>
+																	openImageModal(post.image_url)
+																}
+															/>
+														</div>
+													)}
+												</div>
 											</div>
 										</div>
 								  ))}
@@ -149,6 +181,27 @@ export default function Home() {
 					</section>
 				</article>
 			</main>
+			{selectedImage && (
+				<div
+					className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+					onClick={closeImageModal}
+				>
+					<div className="relative max-w-full max-h-full">
+						<button
+							onClick={closeImageModal}
+							className="fixed cursor-pointer top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+						>
+							<X size={24} />
+						</button>
+						<img
+							src={selectedImage}
+							alt="Full size image"
+							className="max-w-full max-h-full object-contain rounded-lg"
+							onClick={(e) => e.stopPropagation()}
+						/>
+					</div>
+				</div>
+			)}
 		</>
 	);
 }
